@@ -15,4 +15,5 @@ public class JoinForm {
 
     @NotEmpty
     private String email;
+
 }

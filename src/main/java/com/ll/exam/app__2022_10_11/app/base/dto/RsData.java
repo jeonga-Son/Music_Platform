@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class RsData<T> {
+
     private String resultCode;
 
     private String msg;

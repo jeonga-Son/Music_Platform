@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.User;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
 @Getter
 public class MemberContext extends User {
 

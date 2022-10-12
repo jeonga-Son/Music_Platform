@@ -20,7 +20,6 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
 
     public Member join(String username, String password, String email) {
-
         if (memberRepository.findByUsername(username).isPresent()) {
             throw new AlreadyJoinException();
         }

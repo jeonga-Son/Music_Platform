@@ -31,7 +31,7 @@ public class BaseEntity {
     // @GeneratedValue(strategy = IDENTITY)는 기본 키 생성을 데이터베이스에 위임한다.
     // 즉, id 값을 null로 하면 DB가 알아서 AUTO_INCREMENT 해준다.
     @GeneratedValue(strategy = IDENTITY)
-    private long id;
+    private Long id;
 
     @CreatedDate
     private LocalDateTime createDate;
