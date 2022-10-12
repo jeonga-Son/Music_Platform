@@ -28,6 +28,8 @@ public class Member extends BaseEntity {
 
     private boolean emailVerified;
 
+    private long restCash;
+
     public String getName() {
         return username;
     }
