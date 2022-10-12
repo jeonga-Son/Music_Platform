@@ -51,23 +51,33 @@
                     로그인
                 </span>
             </a>
+
             <a href="/member/join" class="inline-flex" sec:authorize="isAnonymous()">
                 <i class="fa-solid fa-user-plus"></i>
                 <span class="ml-[2px] hidden sm:block">
                     회원가입
                 </span>
             </a>
+
             <a href="javascript: document.logoutForm.submit();" class="inline-flex" sec:authorize="isAuthenticated()">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
                 <span class="ml-[2px] hidden sm:block">
                     로그아웃
                 </span>
             </a>
+
             <form name="logoutForm" th:action="@{/member/logout}" method="post" hidden></form>
             <a href="/member/profile" class="inline-flex" sec:authorize="isAuthenticated()">
                 <i class="fa-solid fa-user"></i>
                 <span class="ml-[2px] hidden sm:block">
                     프로파일
+                </span>
+            </a>
+
+            <a href="/song/create" class="inline-flex" sec:authorize="isAuthenticated()">
+                <i class="fa-solid fa-upload"></i>
+                <span class="ml-[2px] hidden sm:block">
+                    음원 업로드
                 </span>
             </a>
         </div>

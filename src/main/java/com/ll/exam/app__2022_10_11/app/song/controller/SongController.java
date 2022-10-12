@@ -30,14 +30,15 @@ public class SongController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
-    public String showWrite() {
+    public String showCreate() {
         return "song/create";
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create")
-    public String write(@AuthenticationPrincipal MemberContext memberContext, @Valid SongForm songForm) {
+    public String create(@AuthenticationPrincipal MemberContext memberContext, @Valid SongForm songForm) {
         Member author = memberContext.getMember();
+
         Song song = songService.create(author, songForm.getSubject(), songForm.getContent());
         return "redirect:/song/" + song.getId() + "?msg=" + Ut.url.encode("%d번 음원이 생성되었습니다.".formatted(song.getId()));
     }
@@ -62,6 +63,7 @@ public class SongController {
     @PostMapping("/{id}/modify")
     public String modify(@AuthenticationPrincipal MemberContext memberContext, @Valid SongForm songForm, @PathVariable long id) {
         Song song = songService.findById(id).get();
+
         Member actor = memberContext.getMember();
 
         if (songService.actorCanModify(actor, song) == false) {

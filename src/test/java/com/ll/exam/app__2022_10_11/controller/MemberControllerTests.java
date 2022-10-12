@@ -28,6 +28,7 @@ public class MemberControllerTests {
 
     @Autowired
     private MockMvc mvc;
+
     @Autowired
     private MemberService memberService;
 
