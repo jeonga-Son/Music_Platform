@@ -22,7 +22,6 @@ import static javax.persistence.FetchType.LAZY;
 @SuperBuilder
 @ToString(callSuper = true)
 public class OrderItem extends BaseEntity {
-
     @ManyToOne(fetch = LAZY)
     @ToString.Exclude
     private Order order;

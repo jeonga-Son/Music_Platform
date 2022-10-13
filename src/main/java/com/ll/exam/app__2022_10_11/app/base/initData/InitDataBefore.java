@@ -1,6 +1,5 @@
 package com.ll.exam.app__2022_10_11.app.base.initData;
 
-import com.ll.exam.app__2022_10_11.app.cart.entity.CartItem;
 import com.ll.exam.app__2022_10_11.app.cart.service.CartService;
 import com.ll.exam.app__2022_10_11.app.member.entity.Member;
 import com.ll.exam.app__2022_10_11.app.member.service.MemberService;
@@ -15,9 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public interface InitDataBefore {
-    // default method는 인터페이스에 있는 구현 메서드를 의미한다.
     default void before(MemberService memberService, SongService songService, ProductService productService, CartService cartService, OrderService orderService) {
-
         class Helper {
             public Order order(Member member, List<Product> products) {
                 for (int i = 0; i < products.size(); i++) {
@@ -31,6 +28,7 @@ public interface InitDataBefore {
         }
 
         Helper helper = new Helper();
+
 
         Member member1 = memberService.join("user1", "1234", "user1@test.com");
         Member member2 = memberService.join("user2", "1234", "user2@test.com");
@@ -56,7 +54,6 @@ public interface InitDataBefore {
         memberService.addCash(member1, 1_000_000, "충전__무통장입금");
 
         memberService.addCash(member2, 2_000_000, "충전__무통장입금");
-
 
         // 1번 주문 : 결제완료
         Order order1 = helper.order(member1, Arrays.asList(

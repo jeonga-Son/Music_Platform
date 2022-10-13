@@ -20,11 +20,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class OrderService {
-
     private final MemberService memberService;
-
     private final CartService cartService;
-
     private final OrderRepository orderRepository;
 
     @Transactional
@@ -62,7 +59,7 @@ public class OrderService {
             order.addOrderItem(orderItem);
         }
 
-        // 주문 품목으로부터 이름을 만든다.
+        // 주문 품목으로 부터 이름을 만든다.
         order.makeName();
 
         orderRepository.save(order);

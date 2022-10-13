@@ -3,6 +3,7 @@ package com.ll.exam.app__2022_10_11.controller;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ll.exam.app__2022_10_11.app.member.entity.Member;
+import com.ll.exam.app__2022_10_11.app.member.service.MemberService;
 import com.ll.exam.app__2022_10_11.app.order.entity.Order;
 import com.ll.exam.app__2022_10_11.app.order.exception.OrderIdNotMatchedException;
 import com.ll.exam.app__2022_10_11.app.order.service.OrderService;
@@ -32,12 +33,13 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("/order")
 public class OrderController {
-
     private final OrderService orderService;
 
     private final RestTemplate restTemplate = new RestTemplate();
 
     private final ObjectMapper objectMapper;
+
+    private final MemberService memberService;
 
     @GetMapping("/{id}")
     @PreAuthorize("isAuthenticated()")
@@ -46,11 +48,14 @@ public class OrderController {
 
         Member actor = memberContext.getMember();
 
+        long restCash = memberService.getRestCash(actor);
+
         if (orderService.actorCanSee(actor, order) == false) {
             throw new ActorCanNotSeeOrderException();
         }
 
         model.addAttribute("order", order);
+        model.addAttribute("actorRestCash", restCash);
 
         return "order/detail";
     }
@@ -107,7 +112,6 @@ public class OrderController {
             orderService.payByTossPayments(order);
 
             return "redirect:/order/%d?msg=%s".formatted(order.getId(), Ut.url.encode("결제가 완료되었습니다."));
-
         } else {
             JsonNode failNode = responseEntity.getBody();
             model.addAttribute("message", failNode.get("message").asText());
