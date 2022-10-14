@@ -6,11 +6,11 @@ import com.ll.exam.app__2022_10_11.app.member.entity.Member;
 import com.ll.exam.app__2022_10_11.app.member.service.MemberService;
 import com.ll.exam.app__2022_10_11.app.order.entity.Order;
 import com.ll.exam.app__2022_10_11.app.order.exception.ActorCanNotPayOrderException;
+import com.ll.exam.app__2022_10_11.app.order.exception.ActorCanNotSeeOrderException;
 import com.ll.exam.app__2022_10_11.app.order.exception.OrderIdNotMatchedException;
 import com.ll.exam.app__2022_10_11.app.order.exception.OrderNotEnoughRestCashException;
 import com.ll.exam.app__2022_10_11.app.order.service.OrderService;
 import com.ll.exam.app__2022_10_11.app.security.dto.MemberContext;
-import com.ll.exam.app__2022_10_11.app.order.exception.ActorCanNotSeeOrderException;
 import com.ll.exam.app__2022_10_11.util.Ut;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
@@ -151,5 +151,15 @@ public class OrderController {
         model.addAttribute("message", message);
         model.addAttribute("code", code);
         return "order/fail";
+    }
+
+    @PostMapping("/makeOrder")
+    @PreAuthorize("isAuthenticated()")
+    public String makeOrder(@AuthenticationPrincipal MemberContext memberContext) {
+        Member member = memberContext.getMember();
+        Order order = orderService.createFromCart(member);
+        String redirect = "redirect:/order/%d".formatted(order.getId()) + "?msg=" + Ut.url.encode("%d번 주문이 생성되었습니다.".formatted(order.getId()));
+
+        return redirect;
     }
 }
