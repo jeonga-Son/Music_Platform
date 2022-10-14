@@ -25,4 +25,8 @@ public class CashLog extends BaseEntity {
     private long price; // 변동
 
     private String eventType;
+
+    public CashLog(long id) {
+        super(id);
+    }
 }
