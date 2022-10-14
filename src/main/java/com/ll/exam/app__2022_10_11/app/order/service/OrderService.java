@@ -23,11 +23,8 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class OrderService {
     private final MemberService memberService;
-
     private final CartService cartService;
-
     private final OrderRepository orderRepository;
-
     private final OrderItemRepository orderItemRepository;
 
     @Transactional
@@ -133,7 +130,7 @@ public class OrderService {
         return actorCanSee(actor, order);
     }
 
-    public List<OrderItem> findAllByPayDateBetween(LocalDateTime fromDate, LocalDateTime toDate) {
+    public List<OrderItem> findAllByPayDateBetweenOrderByIdAsc(LocalDateTime fromDate, LocalDateTime toDate) {
         return orderItemRepository.findAllByPayDateBetween(fromDate, toDate);
     }
 }
