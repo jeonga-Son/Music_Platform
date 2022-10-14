@@ -7,3 +7,8 @@ USE app__2022_10_11__test;
 DROP DATABASE IF EXISTS app__2022_10_11__dev;
 CREATE DATABASE app__2022_10_11__dev;
 USE app__2022_10_11__dev;
+
+# 10월의 정산데이터를 만들기 위한 SELECT
+SELECT *
+FROM order_item
+WHERE pay_date BETWEEN '2022-10-01 00:00:00.000000' AND '2022-10-31 23:59:59.999999'
